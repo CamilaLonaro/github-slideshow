@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Método LONARO</title>
+<meta name="description" content="Mapa oficial do Método LONARO: seis etapas que levam a organização da percepção à capacidade, e o LONARO Transformation Map.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a1620'/%3E%3Ccircle cx='32' cy='32' r='14' fill='%23d6b270'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  color-scheme: dark;
+  --night: #0a1620; --night-2: #0f2130; --night-3: #16293a;
+  --ivory: #f1ece2; --mist: #9fb0bd; --gold: #d6b270; --gold-soft: #e9d3a4;
+  --line: rgba(241, 236, 226, 0.13); --line-strong: rgba(241, 236, 226, 0.24);
+  --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --f-head: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+* { box-sizing: border-box; }
+html { background: var(--night); }
+body { margin: 0; background: radial-gradient(60rem 30rem at 90% 0%, rgba(214,178,112,0.12), transparent 60%), radial-gradient(50rem 30rem at 0% 100%, rgba(60,110,140,0.16), transparent 60%), var(--night); color: var(--ivory); font-family: var(--f-head); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+.sheet { max-width: 100rem; margin-inline: auto; padding-inline: clamp(1rem, 3.5vw, 3.5rem); padding-block: clamp(1.75rem, 3.5vw, 3rem); display: grid; gap: clamp(1.75rem, 3vw, 2.5rem); }
+p, h1, h2, h3 { margin: 0; }
+a { color: inherit; }
+.label { font-family: var(--f-mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mist); }
+.label b { color: var(--gold); font-weight: 500; }
+.head { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem 2rem; flex-wrap: wrap; padding-bottom: 1.25rem; border-bottom: 1px solid var(--line); }
+.sig { display: flex; align-items: baseline; gap: 0.9rem 1.25rem; flex-wrap: wrap; }
+.sig .mark { font-family: var(--f-display); font-stretch: 125%; font-weight: 800; font-size: clamp(2rem, 4vw, 3.1rem); letter-spacing: 0.08em; line-height: 1; text-decoration: none; }
+.sig .mark span { color: var(--gold); }
+.sig .bar { width: 1px; height: 1.8rem; background: var(--line-strong); align-self: center; }
+.sig .claim { font-size: clamp(1.2rem, 2.2vw, 1.7rem); font-style: italic; color: var(--gold-soft); font-weight: 300; }
+.head .meta { text-align: right; display: grid; gap: 0.3rem; }
+.thesis { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 1.5rem clamp(2rem, 4vw, 4rem); align-items: end; }
+.thesis h1 { font-weight: 400; font-size: clamp(2rem, 4.2vw, 3.6rem); line-height: 1.04; letter-spacing: -0.015em; text-wrap: balance; }
+.thesis h1 em { color: var(--gold); }
+.thesis .kicker { margin-bottom: 0.9rem; display: block; }
+.side { display: grid; gap: 1rem; }
+.pain { border-left: 2px solid var(--gold); padding-left: 1.1rem; font-style: italic; font-size: 1.15rem; line-height: 1.35; }
+.pain .label { display: block; font-style: normal; margin-bottom: 0.4rem; }
+.biz { font-size: 1rem; color: var(--mist); line-height: 1.5; }
+.biz strong { color: var(--ivory); font-weight: 600; }
+@media (max-width: 900px) { .thesis { grid-template-columns: 1fr; } }
+.journey { display: grid; gap: 0; }
+.track { position: relative; height: 3.6rem; }
+.track::before { content: ""; position: absolute; left: 0; right: 0; top: 0.55rem; height: 1px; background: linear-gradient(90deg, rgba(214,178,112,0.35), var(--gold)); }
+.node { position: absolute; top: 0; transform: translateX(-50%); display: grid; justify-items: center; gap: 0.45rem; }
+.node i { width: 1.1rem; height: 1.1rem; border-radius: 50%; border: 1px solid var(--gold); background: var(--night); display: block; }
+.node:last-child i { background: var(--gold); box-shadow: 0 0 18px rgba(214,178,112,0.6); }
+.node span { font-family: var(--f-display); font-stretch: 110%; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; color: var(--ivory); }
+.node:first-child { transform: none; justify-items: start; }
+.node:last-child { transform: translateX(-100%); justify-items: end; }
+.node:first-child span { color: var(--mist); }
+.node:last-child span { color: var(--gold); }
+.stages { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.stage { padding: 1.4rem 1.1rem 1.5rem; border-left: 1px solid var(--line); display: grid; grid-template-rows: auto auto 1fr auto; gap: 0.75rem; min-width: 0; }
+.stage:first-child { border-left: 0; }
+.stage .top { display: flex; align-items: flex-end; gap: 0.75rem; }
+.stage .letter { font-family: var(--f-display); font-stretch: 125%; font-weight: 800; font-size: 3.6rem; line-height: 0.8; color: var(--gold); }
+.stage h3 { font-family: var(--f-display); font-stretch: 106%; font-weight: 700; font-size: 0.88rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.verb { display: inline-block; justify-self: start; font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--night); background: var(--gold); padding: 0.2rem 0.55rem; border-radius: 999px; }
+.stage .q { font-size: 1.28rem; line-height: 1.25; }
+.shift { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; font-family: var(--f-mono); font-size: 0.78rem; padding-top: 0.75rem; border-top: 1px dashed var(--line-strong); }
+.shift .from { color: var(--mist); } .shift .arrow { color: var(--gold); } .shift .to { color: var(--gold-soft); }
+.levers { display: grid; grid-template-columns: minmax(0, auto) minmax(0, 1fr); gap: 0.75rem 1.5rem; align-items: center; padding: 1rem 1.25rem; border: 1px solid var(--line); border-radius: 14px; background: rgba(241,236,226,0.03); }
+.levers ul { display: flex; flex-wrap: wrap; gap: 0.45rem; padding: 0; margin: 0; }
+.levers li { list-style: none; font-family: var(--f-mono); font-size: 0.78rem; padding: 0.3rem 0.8rem; border: 1px solid var(--line-strong); border-radius: 999px; }
+.levers li.ai { border-color: var(--gold); color: var(--gold); }
+.levers .note { grid-column: 1 / -1; font-size: 0.98rem; color: var(--mist); }
+.levers .note strong { color: var(--ivory); font-weight: 600; }
+.map { border-radius: 18px; padding: 1.5rem clamp(1rem, 2vw, 1.5rem) 1.6rem; background: linear-gradient(180deg, rgba(214,178,112,0.10), rgba(214,178,112,0.03)); border: 1px solid rgba(214,178,112,0.35); display: grid; gap: 1.25rem; }
+.map-head { display: grid; grid-template-columns: minmax(0, auto) minmax(0, 1fr); gap: 0.5rem 2rem; align-items: end; }
+.map-head h2 { font-family: var(--f-display); font-stretch: 118%; font-weight: 800; font-size: clamp(1.3rem, 2.3vw, 1.75rem); letter-spacing: 0.04em; text-transform: uppercase; }
+.map-head h2 span { color: var(--gold); }
+.map-head p { color: var(--mist); font-size: 1.02rem; max-width: 46rem; justify-self: end; text-align: right; }
+.map-cols { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.6rem; }
+.map-col { display: grid; gap: 0.45rem; align-content: start; min-width: 0; }
+.map-col .from-stage { font-family: var(--f-mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--mist); text-transform: uppercase; }
+.item { display: flex; align-items: baseline; gap: 0.55rem; padding: 0.55rem 0.7rem; border-radius: 10px; background: var(--night-2); border: 1px solid var(--line); min-width: 0; }
+.item b { font-family: var(--f-mono); font-weight: 500; font-size: 0.7rem; color: var(--gold); }
+.item span { font-family: var(--f-display); font-weight: 600; font-size: 0.92rem; overflow-wrap: break-word; min-width: 0; }
+.map-flow { font-family: var(--f-mono); font-size: 0.74rem; color: var(--mist); line-height: 1.7; }
+.map-flow b { color: var(--gold); font-weight: 400; }
+@media (max-width: 900px) { .map-head { grid-template-columns: 1fr; } .map-head p { justify-self: start; text-align: left; } }
+.foot { display: flex; justify-content: space-between; align-items: center; gap: 1rem 2rem; flex-wrap: wrap; padding-top: 1.1rem; border-top: 1px solid var(--line); }
+.foot .principle { font-family: var(--f-display); font-stretch: 125%; font-weight: 800; font-size: clamp(1rem, 1.8vw, 1.3rem); text-transform: uppercase; letter-spacing: 0.02em; }
+.foot .principle em { font-style: normal; color: var(--gold); }
+.foot .tag { font-style: italic; color: var(--mist); }
+.back { font-family: var(--f-mono); font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mist); text-decoration: none; }
+.back:hover { color: var(--gold); }
+@media (max-width: 1100px) {
+  .track { display: none; }
+  .stages { grid-template-columns: 1fr 1fr; }
+  .stage { border-left: 0; border-top: 1px solid var(--line); }
+  .stage:nth-child(even) { border-left: 1px solid var(--line); }
+  .stage:nth-child(-n+2) { border-top: 0; }
+  .map-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .stages { grid-template-columns: 1fr; }
+  .stage:nth-child(even) { border-left: 0; }
+  .stage:nth-child(2) { border-top: 1px solid var(--line); }
+  .map-cols { grid-template-columns: 1fr 1fr; }
+  .levers { grid-template-columns: 1fr; }
+  .head .meta { text-align: left; }
+}
+</style>
+</head>
+<body>
+<main class="sheet">
+  <header class="head">
+    <div class="sig">
+      <a class="mark" href="index.html">LONAR<span>O</span></a>
+      <span class="bar" aria-hidden="true"></span>
+      <span class="claim">Da complexidade ao resultado.</span>
+    </div>
+    <div class="meta">
+      <span class="label"><b>Mapa oficial</b> · Método LONARO</span>
+      <span class="label">Método de transformação de negócio</span>
+    </div>
+  </header>
+
+  <section class="thesis" aria-label="Tese">
+    <div>
+      <span class="label kicker">A tese do método</span>
+      <h1>Não comece pela solução.<br><em>Comece pelo valor.</em></h1>
+    </div>
+    <div class="side">
+      <p class="pain"><span class="label">O problema que o LONARO resolve</span>“Sabemos que precisamos mudar. Só ainda não está claro por onde começar.”</p>
+      <p class="biz">O LONARO é um <strong>método de transformação de negócio</strong>. Não começamos pela IA. Começamos pelo negócio.</p>
+    </div>
+  </section>
+
+  <section class="journey" aria-label="Jornada L, O, N, A, R, O">
+    <div class="track" aria-hidden="true">
+      <div class="node" style="left:0%"><i></i><span>Percepção</span></div>
+      <div class="node" style="left:16.667%"><i></i><span>Evidência</span></div>
+      <div class="node" style="left:33.333%"><i></i><span>Oportunidade</span></div>
+      <div class="node" style="left:50%"><i></i><span>Foco</span></div>
+      <div class="node" style="left:66.667%"><i></i><span>Solução</span></div>
+      <div class="node" style="left:83.333%"><i></i><span>Resultado</span></div>
+      <div class="node" style="left:100%"><i></i><span>Capacidade</span></div>
+    </div>
+    <div class="stages">
+      <article class="stage"><div class="top"><span class="letter">L</span><div class="name"><h3>Leitura</h3></div></div><span class="verb">Ver</span><p class="q">O que realmente está acontecendo?</p><p class="shift"><span class="from">Percepção</span><span class="arrow">→</span><span class="to">Evidência</span></p></article>
+      <article class="stage"><div class="top"><span class="letter">O</span><div class="name"><h3>Oportunidade</h3></div></div><span class="verb">Escolher</span><p class="q">Onde existe valor a ser destravado?</p><p class="shift"><span class="from">Evidência</span><span class="arrow">→</span><span class="to">Oportunidade</span></p></article>
+      <article class="stage"><div class="top"><span class="letter">N</span><div class="name"><h3>Necessidade</h3></div></div><span class="verb">Focar</span><p class="q">Onde precisamos atuar?</p><p class="shift"><span class="from">Oportunidade</span><span class="arrow">→</span><span class="to">Foco</span></p></article>
+      <article class="stage"><div class="top"><span class="letter">A</span><div class="name"><h3>Aceleração</h3></div></div><span class="verb">Desenhar</span><p class="q">Qual é o melhor caminho?</p><p class="shift"><span class="from">Foco</span><span class="arrow">→</span><span class="to">Solução</span></p></article>
+      <article class="stage"><div class="top"><span class="letter">R</span><div class="name"><h3>Realização</h3></div></div><span class="verb">Realizar</span><p class="q">Como isso vira resultado?</p><p class="shift"><span class="from">Solução</span><span class="arrow">→</span><span class="to">Resultado</span></p></article>
+      <article class="stage"><div class="top"><span class="letter">O</span><div class="name"><h3>Organização</h3></div></div><span class="verb">Sustentar</span><p class="q">Como fazemos esse resultado permanecer e evoluir?</p><p class="shift"><span class="from">Resultado</span><span class="arrow">→</span><span class="to">Capacidade</span></p></article>
+    </div>
+  </section>
+
+  <section class="levers" aria-label="Onde a solução pode estar">
+    <span class="label">Onde a solução pode estar</span>
+    <ul><li>Pessoas</li><li>Processos</li><li>Produto</li><li>Dados</li><li>Governança</li><li>Tecnologia</li><li class="ai">Inteligência Artificial</li></ul>
+    <p class="note"><strong>IA é uma das principais alavancas do método, mas não é o ponto de partida.</strong> A solução é desenhada a partir do foco, não da ferramenta.</p>
+  </section>
+
+  <section class="map" aria-label="LONARO Transformation Map">
+    <div class="map-head">
+      <h2>LONARO <span>Transformation Map</span></h2>
+      <p>Um único artefato vivo, construído ao longo de toda a metodologia. Cada etapa acrescenta uma camada ao mesmo mapa.</p>
+    </div>
+    <div class="map-cols">
+      <div class="map-col"><span class="from-stage">L · Leitura</span><div class="item"><b>01</b><span>Problema</span></div><div class="item"><b>02</b><span>Evidências</span></div></div>
+      <div class="map-col"><span class="from-stage">O · Oportunidade</span><div class="item"><b>03</b><span>Oportunidades</span></div></div>
+      <div class="map-col"><span class="from-stage">N · Necessidade</span><div class="item"><b>04</b><span>Prioridade</span></div><div class="item"><b>05</b><span>Gaps</span></div><div class="item"><b>06</b><span>Focos</span></div></div>
+      <div class="map-col"><span class="from-stage">A · Aceleração</span><div class="item"><b>07</b><span>Solução</span></div></div>
+      <div class="map-col"><span class="from-stage">R · Realização</span><div class="item"><b>08</b><span>Roadmap</span></div><div class="item"><b>09</b><span>Métricas</span></div></div>
+      <div class="map-col"><span class="from-stage">O · Organização</span><div class="item"><b>10</b><span>Governança</span></div><div class="item"><b>11</b><span>Evolução</span></div></div>
+    </div>
+    <p class="map-flow">Problema <b>→</b> Evidências <b>→</b> Oportunidades <b>→</b> Prioridade <b>→</b> Gaps <b>→</b> Focos <b>→</b> Solução <b>→</b> Roadmap <b>→</b> Métricas <b>→</b> Governança <b>→</b> Evolução</p>
+  </section>
+
+  <footer class="foot">
+    <p class="principle">IA é capacidade. <em>Não estratégia.</em></p>
+    <p class="tag">Inteligência para decidir. Estrutura para executar.</p>
+    <a class="back" href="index.html#contato">Quero conversar →</a>
+  </footer>
+</main>
+</body>
+</html>
