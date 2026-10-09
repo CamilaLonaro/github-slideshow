@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1350px;overflow:hidden}
+body{position:relative;background:#0a1620;font-family:"Source Serif 4",Georgia,serif;color:#f1ece2}
+.ph{position:absolute;left:0;right:0;top:0;height:__PH__px;background-image:url("__IMG__");background-size:cover;background-position:__POS__}
+.fade{position:absolute;left:0;right:0;top:__FADETOP__px;height:260px;background:linear-gradient(to bottom,rgba(10,22,32,0),#0a1620)}
+.glow{position:absolute;width:900px;height:600px;right:-300px;top:-200px;border-radius:50%;background:radial-gradient(circle,rgba(214,178,112,.16),rgba(214,178,112,0) 65%)}
+.top{position:absolute;left:64px;right:64px;top:56px;display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:17px;letter-spacing:.18em;text-transform:uppercase;color:#9fb0bd;z-index:2}
+.top b{color:#d6b270;font-weight:500}
+.card{position:absolute;left:64px;right:64px;top:__CARDTOP__px}
+.rule{width:56px;height:2px;background:#d6b270;margin-bottom:40px}
+h1{font-weight:400;font-size:__H1__;line-height:1.1;letter-spacing:-.01em;text-wrap:balance}
+h1 em{font-style:italic;color:#d6b270}
+.sub{margin-top:26px;font-size:25px;line-height:1.45;color:#9fb0bd;max-width:27em}
+.list{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:20px 36px}
+.list div{font-family:"Archivo",sans-serif;font-weight:600;font-size:30px;color:#f1ece2;padding-left:30px;position:relative}
+.list div::before{content:"";position:absolute;left:0;top:14px;width:14px;height:1px;background:#d6b270}
+.foot{position:absolute;left:64px;right:64px;bottom:56px;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid rgba(241,236,226,.18);padding-top:24px}
+.mark{font-family:"Archivo",sans-serif;font-stretch:125%;font-weight:800;font-size:30px;letter-spacing:.22em}
+.mark span{color:#d6b270}
+.cred{font-family:"IBM Plex Mono",monospace;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#9fb0bd;margin-top:10px}
+.right{font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.22em;text-transform:uppercase;color:#d6b270;white-space:nowrap}
+</style></head><body>
+__PHOTO__<div class="glow"></div>
+<div class="top"><span><b>Ponto de Decisão</b></span><span>__KICKR__</span></div>
+<div class="card">__RULE__<h1>__H1T__</h1>__EXTRA__</div>
+<div class="foot"><div><div class="mark">LONAR<span>O</span></div><div class="cred">__CRED__</div></div><div class="right">__RIGHT__</div></div>
+</body></html>
