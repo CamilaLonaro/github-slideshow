@@ -34,6 +34,7 @@ Todos os comandos abaixo assumem o prefixo
 | Métricas de um post | `media-insights <media_id>` |
 | Métricas da conta (série + totais) | `account-insights --since 2026-09-01 --until 2026-09-20` |
 | Resumo pronto (conta + últimos N posts) | `report --limit 10` |
+| Auditoria completa em JSON (perfil, posts, insights, demografia) | `audit --limit 36 --days 30 --output instagram-audit.json` |
 | Cota de publicação (100 posts/24h) | `limit` |
 
 Notas:

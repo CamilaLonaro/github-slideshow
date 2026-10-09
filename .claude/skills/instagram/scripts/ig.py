@@ -351,6 +351,69 @@ def cmd_report(args):
     out({"account": profile, "posts": rows})
 
 
+def cmd_audit(args):
+    """Dump everything needed for a profile review into one JSON file."""
+    require_token()
+    uid = resolve_user_id()
+    import datetime as _dt
+
+    def safe(fn):
+        try:
+            return fn()
+        except ApiError as exc:
+            return {"error": str(exc)}
+
+    today = _dt.date.today()
+    since = (today - _dt.timedelta(days=args.days)).isoformat()
+    until = today.isoformat()
+    dump = {
+        "generated_at": _dt.datetime.now().isoformat(timespec="seconds"),
+        "window_days": args.days,
+        "profile": safe(lambda: get(
+            f"/{uid}",
+            fields="id,username,name,biography,website,followers_count,follows_count,"
+                   "media_count,profile_picture_url",
+        )),
+        "account_series": safe(lambda: flatten_insights(get(
+            f"/{uid}/insights", metric=ACCOUNT_SERIES_METRICS, period="day",
+            since=since, until=until,
+        ))),
+        "account_totals": safe(lambda: flatten_insights(get(
+            f"/{uid}/insights", metric=ACCOUNT_TOTAL_METRICS, period="day",
+            metric_type="total_value", since=since, until=until,
+        ))),
+        "demographics": {},
+        "posts": [],
+    }
+    for bd in ("age", "gender", "city", "country"):
+        dump["demographics"][bd] = safe(lambda bd=bd: get(
+            f"/{uid}/insights", metric="follower_demographics", period="lifetime",
+            metric_type="total_value", breakdown=bd,
+        ))
+    posts = safe(lambda: paginate(
+        f"/{uid}/media", args.limit,
+        fields="id,caption,media_type,media_product_type,permalink,timestamp,"
+               "like_count,comments_count,thumbnail_url,media_url",
+        limit=min(args.limit, 50),
+    ))
+    if isinstance(posts, dict):
+        dump["posts"] = posts
+    else:
+        for p in posts:
+            metrics = (
+                REEL_METRICS
+                if p.get("media_product_type") == "REELS" or p.get("media_type") == "VIDEO"
+                else IMAGE_METRICS
+            )
+            p["insights"] = safe(lambda p=p: flatten_insights(get(f"/{p['id']}/insights", metric=metrics)))
+            dump["posts"].append(p)
+            print(f"  {p.get('timestamp','')[:10]} {p.get('media_product_type') or p.get('media_type')}", file=sys.stderr)
+    with open(args.output, "w", encoding="utf-8") as fh:
+        json.dump(dump, fh, indent=2, ensure_ascii=False)
+    n = len(dump["posts"]) if isinstance(dump["posts"], list) else 0
+    print(f"wrote {args.output} ({n} posts)", file=sys.stderr)
+
+
 # ----------------------------------------------------------------------------
 # Publishing
 # ----------------------------------------------------------------------------
@@ -624,6 +687,12 @@ def build_parser():
     s = sub.add_parser("report", help="account summary + metrics for the last N posts")
     s.add_argument("--limit", type=int, default=10)
     s.set_defaults(fn=cmd_report)
+
+    s = sub.add_parser("audit", help="dump profile, posts, insights and demographics to a JSON file")
+    s.add_argument("--limit", type=int, default=36, help="number of recent posts")
+    s.add_argument("--days", type=int, default=30, help="account insights window")
+    s.add_argument("--output", default="instagram-audit.json")
+    s.set_defaults(fn=cmd_audit)
 
     s = sub.add_parser("publish-image", help="publish a single image (JPEG, public URL)")
     s.add_argument("--image-url", required=True)
