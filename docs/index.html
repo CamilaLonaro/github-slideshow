@@ -87,6 +87,11 @@ section { padding-block: clamp(3.5rem, 8vw, 6rem); border-top: 1px solid rgba(24
 .proof .t { font-family: var(--f-display); font-weight: 600; font-size: 0.95rem; }
 .proof .s { color: var(--mist); font-size: 0.95rem; line-height: 1.45; }
 @media (max-width: 720px) { .proof { grid-template-columns: 1fr; } }
+.strip { margin-top: 1.4rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+.strip figure { margin: 0; display: grid; gap: 0.5rem; min-width: 0; }
+.strip img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 10px; border: 1px solid var(--line); }
+.strip figcaption { font-family: var(--f-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mist); }
+@media (max-width: 640px) { .strip { grid-template-columns: 1fr; } }
 .stages-row { margin-top: 1.6rem; display: flex; flex-wrap: wrap; gap: 0.5rem 0.9rem; align-items: center; font-family: var(--f-mono); font-size: 0.78rem; letter-spacing: 0.08em; color: var(--mist); }
 .stages-row b { color: var(--gold); font-weight: 500; }
 
@@ -189,9 +194,15 @@ footer a { text-decoration: none; }
       <div class="proof">
         <div><span class="n">16 anos</span><span class="t">formando pessoas e negócios</span><span class="s">Liderança de times e de iniciativas estratégicas em organizações complexas.</span></div>
         <div><span class="n">LatAm</span><span class="t">Mercado Livre</span><span class="s">Iniciativas estratégicas para a América Latina, integrando mercados, áreas e tecnologias.</span></div>
-        <div><span class="n">2026</span><span class="t">Palcos e encontros</span><span class="s">Febraban Tech · Mercado Livre Experience · AI Brasil (Vitória) · Mesa de Decisão · Encontro Evidência.</span></div>
+        <div><span class="n">Palco</span><span class="t">AI Brasil · Capítulo Vitória 2026</span><span class="s">Palestra "IA não é estratégia. Negócio é." e Painel 2, "O futuro do atendimento e vendas", com Google e varejo.</span></div>
       </div>
-      <div class="stages-row"><span class="label">Em breve nesta seção</span><span>Cases com problema, decisão e resultado medido, em projetos de produto, IA e gestão.</span></div>
+      <div class="strip">
+        <figure><img src="assets/palco-aibrasil.jpg" alt="Camila Lonaro no palco do AI Brasil, Capítulo Vitória 2026" loading="lazy"><figcaption>Palestra · AI Brasil 2026</figcaption></figure>
+        <figure><img src="assets/slide-aibrasil.jpg" alt="Slide da palestra: IA sem contexto é só tecnologia" loading="lazy"><figcaption>"IA sem contexto é só tecnologia."</figcaption></figure>
+        <figure><img src="assets/painel-aibrasil.jpg" alt="Painel 2 do AI Brasil com Camila Lonaro entre os painelistas" loading="lazy"><figcaption>Painel 2 · com Google e Supermercados Calvi</figcaption></figure>
+      </div>
+      <div class="stages-row"><span class="label">Também em 2026</span><span>Febraban Tech · Mercado Livre Experience · Mesa de Decisão · Encontro Evidência · Tittanium Doc &amp; Negócios</span></div>
+      <div class="stages-row"><span class="label">Em breve</span><span>Cases com problema, decisão e resultado medido, em projetos de produto, IA e gestão.</span></div>
     </div>
   </section>
 
