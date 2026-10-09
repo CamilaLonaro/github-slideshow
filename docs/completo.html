@@ -1,0 +1,928 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LONARO · versão completa</title>
+<meta name="description" content="Estratégia, Produto, Inteligência Artificial e Liderança conectados para transformar complexidade em decisão, execução e resultado.">
+<meta property="og:title" content="LONARO · Da complexidade ao resultado.">
+<meta property="og:description" content="Estratégia, Produto, Inteligência Artificial e Liderança conectados para transformar complexidade em decisão, execução e resultado.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a1620'/%3E%3Ccircle cx='32' cy='32' r='14' fill='%23d6b270'/%3E%3C/svg%3E">
+<style>:root{color-scheme:dark}body{margin:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an immersive night reading room. Deep midnight chapters with champagne light,
+   broken by a few pearl chapters for rhythm. Serif for thought, expanded grotesk for structure.
+   Single committed look: every color is set explicitly, independent of the viewer's theme. */
+:root {
+  color-scheme: dark;
+  --night: #0a1620;
+  --night-2: #0f2130;
+  --night-3: #16293a;
+  --ivory: #f1ece2;
+  --mist: #9fb0bd;
+  --gold: #d6b270;
+  --gold-soft: #e9d3a4;
+  --pearl: #eef0ee;
+  --ink: #0e1c27;
+  --bronze: #8a6526;
+
+  /* active tokens (dark chapter by default) */
+  --bg: var(--night);
+  --surface: var(--night-2);
+  --fg: var(--ivory);
+  --muted: var(--mist);
+  --line: rgba(241, 236, 226, 0.13);
+  --accent: var(--gold);
+  --accent-ink: var(--night);
+
+  --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --f-head: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --wrap: 72rem;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --section: clamp(5rem, 11vw, 9rem);
+}
+.light {
+  --bg: var(--pearl);
+  --surface: #e2e6e3;
+  --fg: var(--ink);
+  --muted: #56636c;
+  --line: rgba(14, 28, 39, 0.14);
+  --accent: var(--bronze);
+  --accent-ink: var(--pearl);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--night); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--night); color: var(--ivory);
+  font-family: var(--f-body); font-size: 1.15rem; line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--gold); color: var(--night); }
+.wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
+h1, h2, h3 { font-family: var(--f-head); font-weight: 500; line-height: 1.08; text-wrap: balance; margin: 0; letter-spacing: -0.015em; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.label {
+  font-family: var(--f-mono); font-size: 0.74rem; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+}
+.label b { color: var(--accent); font-weight: 500; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 0.8rem;
+  font-family: var(--f-display); font-stretch: 110%; font-weight: 600;
+  font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; padding: 1.05rem 1.5rem; border: 1px solid var(--accent);
+  color: var(--fg); background: transparent; cursor: pointer; border-radius: 999px;
+  transition: background .25s, color .25s, border-color .25s, box-shadow .25s;
+}
+.btn::after { content: "→"; font-family: var(--f-mono); transition: transform .25s; }
+.btn:hover { background: var(--accent); color: var(--accent-ink); }
+.btn:hover::after { transform: translateX(4px); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); box-shadow: 0 10px 40px -12px color-mix(in srgb, var(--accent) 70%, transparent); }
+.btn.primary:hover { background: var(--gold-soft); border-color: var(--gold-soft); }
+.light .btn.primary:hover { background: var(--ink); border-color: var(--ink); color: var(--pearl); }
+
+/* ---------- reading progress ---------- */
+.progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 20; pointer-events: none; }
+.progress span { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-soft)); transform-origin: 0 50%; transform: scaleX(0); }
+
+/* ---------- header ---------- */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  background: rgba(10, 22, 32, 0.72);
+  backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid rgba(241, 236, 226, 0.08);
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4.25rem; }
+.mark { font-family: var(--f-display); font-stretch: 125%; font-weight: 800; font-size: 1.05rem; letter-spacing: 0.3em; text-decoration: none; color: var(--ivory); }
+.top nav { display: flex; gap: 1.9rem; align-items: center; }
+.top nav a { font-family: var(--f-mono); font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: var(--mist); transition: color .2s; position: relative; }
+.top nav a:hover, .top nav a.on { color: var(--ivory); }
+.top nav a.on::after { content: ""; position: absolute; left: 0; right: 0; bottom: -0.45rem; height: 1px; background: var(--gold); }
+.top nav a.cta { color: var(--night); background: var(--gold); padding: 0.55rem 1rem; border-radius: 999px; }
+.top nav a.cta:hover { background: var(--gold-soft); }
+@media (max-width: 760px) { .top nav a:not(.cta) { display: none; } }
+
+/* ---------- hero ---------- */
+.hero {
+  padding-block: clamp(4rem, 9vw, 7rem) clamp(3rem, 6vw, 5rem); position: relative; overflow: hidden;
+  background:
+    radial-gradient(60rem 30rem at 85% 10%, rgba(214, 178, 112, 0.13), transparent 60%),
+    radial-gradient(50rem 30rem at 0% 100%, rgba(60, 110, 140, 0.18), transparent 60%),
+    var(--night);
+}
+.hero .eyebrow { display: block; margin-bottom: 1.75rem; }
+.hero .wordmark {
+  font-family: var(--f-display); font-stretch: 125%; font-weight: 800;
+  font-size: clamp(3.2rem, 14.5vw, 11rem); line-height: 0.85; letter-spacing: 0.06em;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  background: linear-gradient(180deg, var(--ivory) 30%, rgba(241, 236, 226, 0.35));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero .wordmark span { background: linear-gradient(180deg, var(--gold-soft), var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: end; }
+.hero h1 { font-size: clamp(2.1rem, 4.6vw, 3.6rem); line-height: 1.06; font-weight: 400; }
+.hero .sub { font-size: clamp(1.3rem, 2.3vw, 1.7rem); font-style: italic; margin-top: 1.1rem; color: var(--gold-soft); font-weight: 300; }
+.hero .lede { color: var(--mist); max-width: 34rem; }
+.hero-side { display: grid; gap: 1.75rem; }
+#field { width: 100%; height: 150px; display: block; margin-top: clamp(3rem, 6vw, 4.5rem); max-width: 100%; }
+.field-legend { display: flex; justify-content: space-between; gap: 1rem; margin-top: 0.5rem; flex-wrap: wrap; }
+.scroll-cue { display: flex; align-items: center; gap: 0.75rem; margin-top: 2.5rem; text-decoration: none; }
+.scroll-cue i { width: 1px; height: 2.25rem; background: linear-gradient(var(--gold), transparent); display: block; }
+@media (prefers-reduced-motion: no-preference) { .scroll-cue i { animation: cue 2.4s ease-in-out infinite; transform-origin: top; } }
+@keyframes cue { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+@media (max-width: 820px) { .hero-grid { grid-template-columns: 1fr; } }
+
+/* ---------- generic section ---------- */
+section { padding-block: var(--section); background: var(--bg); color: var(--fg); position: relative; }
+section + section:not(.light):not(.gold) { border-top: 1px solid rgba(241, 236, 226, 0.06); }
+.sec-head { display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); gap: 1.5rem 3rem; margin-bottom: clamp(3rem, 6vw, 4.5rem); }
+.sec-head .label { padding-top: 0.9rem; }
+.sec-head h2 { font-size: clamp(2.2rem, 5vw, 4rem); }
+.sec-head .intro { margin-top: 1.4rem; color: var(--muted); max-width: 40rem; font-size: 1.25rem; }
+@media (max-width: 760px) { .sec-head { grid-template-columns: 1fr; } .sec-head .label { padding-top: 0; } }
+
+/* ---------- problema ---------- */
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: clamp(2rem, 6vw, 5rem); }
+@media (max-width: 820px) { .two { grid-template-columns: 1fr; } }
+.has { padding: 0; margin: 1.5rem 0 0; border-top: 1px solid var(--line); }
+.has li { list-style: none; display: flex; justify-content: space-between; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--line); font-family: var(--f-display); font-weight: 500; font-size: 1.1rem; }
+.has li::after { content: "✓"; font-family: var(--f-mono); color: var(--accent); }
+.questions { padding: 0; margin: 1.5rem 0 0; display: grid; gap: 1.4rem; }
+.questions li { list-style: none; display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.5rem; font-size: 1.35rem; line-height: 1.4; font-family: var(--f-head); }
+.questions li::before { content: "?"; font-family: var(--f-head); font-style: italic; color: var(--accent); font-size: 1.6rem; line-height: 1; }
+.verdict { margin-top: clamp(3.5rem, 7vw, 5rem); padding-top: 2.25rem; border-top: 1px solid var(--fg); display: grid; gap: 0.6rem; }
+.verdict p { font-family: var(--f-head); font-size: clamp(1.6rem, 3.4vw, 2.5rem); line-height: 1.15; text-wrap: balance; }
+.verdict p + p { color: var(--accent); font-style: italic; }
+
+/* ---------- pergunta mudou ---------- */
+#pergunta { background: radial-gradient(50rem 26rem at 90% 80%, rgba(214, 178, 112, 0.08), transparent 60%), var(--night); }
+.shift { display: grid; gap: 3rem; }
+.q { display: grid; grid-template-columns: minmax(0, 10rem) minmax(0, 1fr); gap: 1rem 2rem; align-items: baseline; }
+.q blockquote { margin: 0; font-family: var(--f-head); font-size: clamp(2rem, 5.4vw, 4.2rem); line-height: 1.05; text-wrap: balance; }
+.q.old blockquote { color: rgba(241, 236, 226, 0.38); text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: var(--gold); font-weight: 300; }
+.q.new blockquote { color: var(--ivory); font-style: italic; }
+@media (max-width: 640px) { .q { grid-template-columns: 1fr; } }
+.contrast { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin-top: 1rem; }
+.contrast div { background: var(--surface); padding: 1.75rem; display: grid; gap: 0.5rem; }
+.contrast strong { font-family: var(--f-head); font-weight: 500; font-size: 1.5rem; }
+@media (max-width: 640px) { .contrast { grid-template-columns: 1fr; } }
+
+.gold { --bg: var(--gold); --fg: var(--night); --muted: rgba(10, 22, 32, 0.6); --accent: var(--night); color-scheme: light; }
+.slogan { font-family: var(--f-display); font-stretch: 125%; font-weight: 800; font-size: clamp(2rem, 7vw, 5.5rem); line-height: 0.95; text-transform: uppercase; letter-spacing: 0.01em; }
+.slogan em { font-style: normal; opacity: 0.55; }
+.band.thin { padding-block: clamp(3.5rem, 8vw, 6rem); }
+
+/* ---------- método ---------- */
+#metodo { background: linear-gradient(180deg, var(--night), var(--night-2)); }
+.acro { border-top: 1px solid var(--line); padding: 0; margin: 0; }
+.step {
+  list-style: none;
+  display: grid; grid-template-columns: clamp(4rem, 12vw, 9rem) minmax(0, 12rem) minmax(0, 1fr);
+  gap: 0.5rem 2rem; padding-block: 1.8rem; border-bottom: 1px solid var(--line); align-items: start;
+  transition: background .4s;
+}
+.step .letter {
+  font-family: var(--f-display); font-stretch: 125%; font-weight: 800; font-size: clamp(3.5rem, 9vw, 6.5rem); line-height: 0.8;
+  color: transparent; -webkit-text-stroke: 1px rgba(241, 236, 226, 0.35); transition: color .5s, -webkit-text-stroke-color .5s, text-shadow .5s;
+}
+.step.lit .letter { color: var(--gold); -webkit-text-stroke-color: var(--gold); text-shadow: 0 0 40px rgba(214, 178, 112, 0.35); }
+.step .name { display: grid; gap: 0.35rem; padding-top: 0.3rem; }
+.step .name h3 { font-family: var(--f-display); font-weight: 700; font-size: 1.2rem; font-stretch: 115%; letter-spacing: 0.08em; text-transform: uppercase; }
+.step .body { display: grid; gap: 0.85rem; padding-top: 0.3rem; }
+.step .body p { font-size: 1.3rem; font-family: var(--f-head); line-height: 1.4; }
+.tags { display: flex; flex-wrap: wrap; gap: 0.45rem; padding: 0; margin: 0; }
+.tags li { list-style: none; font-family: var(--f-mono); font-size: 0.74rem; letter-spacing: 0.04em; padding: 0.3rem 0.75rem; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
+@media (max-width: 720px) {
+  .step { grid-template-columns: 4.5rem minmax(0, 1fr); }
+  .step .body { grid-column: 2; }
+}
+
+.step .verb { justify-self: start; font-family: var(--f-mono); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--night); background: var(--gold); padding: 0.2rem 0.6rem; border-radius: 999px; }
+.step .sq { font-size: clamp(1.35rem, 2.4vw, 1.75rem) !important; line-height: 1.25 !important; }
+.step .shiftline { display: flex; flex-wrap: wrap; align-items: center; gap: 0.55rem; font-family: var(--f-mono); font-size: 0.82rem; }
+.step .shiftline .from { color: var(--muted); }
+.step .shiftline .arrow { color: var(--gold); }
+.step .shiftline .to { color: var(--gold-soft); }
+.chain { margin-top: clamp(2.5rem, 5vw, 3.5rem); display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 0.8rem; padding: 1.25rem 1.4rem; border: 1px solid var(--line); border-radius: 14px; background: rgba(241,236,226,0.03); }
+.chain span { font-family: var(--f-display); font-stretch: 110%; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.chain span:first-of-type { color: var(--muted); }
+.chain span:last-of-type { color: var(--gold); }
+.chain i { font-style: normal; font-family: var(--f-mono); color: var(--gold); }
+.chain .label { flex-basis: 100%; }
+.levers { margin-top: 1.25rem; display: grid; gap: 0.9rem; padding: 1.25rem 1.4rem; border: 1px solid var(--line); border-radius: 14px; }
+.levers ul { display: flex; flex-wrap: wrap; gap: 0.45rem; padding: 0; margin: 0; }
+.levers li { list-style: none; font-family: var(--f-mono); font-size: 0.78rem; padding: 0.3rem 0.8rem; border: 1px solid var(--line); border-radius: 999px; }
+.levers li.ai { border-color: var(--gold); color: var(--gold); }
+.levers p { color: var(--muted); }
+.levers p strong { color: var(--fg); font-weight: 600; }
+.method-cta { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+
+/* ---------- transformation map ---------- */
+#map { background: radial-gradient(50rem 28rem at 100% 0%, rgba(214,178,112,0.1), transparent 60%), var(--night-2); }
+.tmap { border-radius: 20px; padding: clamp(1.25rem, 3vw, 2rem); background: linear-gradient(180deg, rgba(214,178,112,0.10), rgba(214,178,112,0.02)); border: 1px solid rgba(214,178,112,0.35); display: grid; gap: 1.5rem; }
+.tmap-cols { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.75rem; }
+.tmap-col { display: grid; gap: 0.5rem; align-content: start; min-width: 0; }
+.tmap-col .from-stage { font-family: var(--f-mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--muted); text-transform: uppercase; }
+.tmap-col .from-stage b { color: var(--gold); font-weight: 500; }
+.titem { display: flex; align-items: baseline; gap: 0.45rem; padding: 0.6rem 0.65rem; border-radius: 10px; background: var(--night); border: 1px solid var(--line); min-width: 0; }
+.titem b { font-family: var(--f-mono); font-weight: 500; font-size: 0.7rem; color: var(--gold); }
+.titem span { font-family: var(--f-display); font-weight: 600; font-size: 0.9rem; overflow-wrap: break-word; min-width: 0; }
+.tmap-note { color: var(--muted); max-width: 46rem; }
+.tmap-note strong { color: var(--fg); font-weight: 600; }
+@media (max-width: 1000px) { .tmap-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .tmap-cols { grid-template-columns: 1fr 1fr; } }
+
+/* ---------- portas de entrada ---------- */
+.depth-key { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.depth-key .scale { flex: 1 1 12rem; height: 1px; background: linear-gradient(90deg, var(--line), var(--accent)); min-width: 0; }
+.door {
+  display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) auto;
+  gap: 1rem 2.5rem; padding-block: 2.5rem; border-top: 1px solid var(--line);
+}
+.door:last-child { border-bottom: 1px solid var(--line); }
+.door-id { display: grid; gap: 0.85rem; align-content: start; }
+.door h3 { font-family: var(--f-display); font-weight: 700; font-size: clamp(1.3rem, 2.4vw, 1.7rem); font-stretch: 112%; text-transform: uppercase; letter-spacing: 0.04em; }
+.meter { display: flex; gap: 4px; }
+.meter i { width: 16px; height: 4px; border-radius: 2px; background: var(--line); }
+.meter i.on { background: var(--accent); }
+.door-body { display: grid; gap: 1rem; max-width: 40rem; }
+.door-body .tagline { font-family: var(--f-head); font-size: 1.55rem; line-height: 1.25; }
+.door-body p { color: var(--muted); }
+.door-body p.strong { color: var(--fg); }
+.door .btn { align-self: start; white-space: nowrap; }
+.themes { display: grid; margin: 0.5rem 0 0; padding: 0; border-top: 1px solid var(--line); }
+.themes li { list-style: none; padding: 1.1rem 0; border-bottom: 1px solid var(--line); display: grid; gap: 0.25rem; }
+.themes strong { font-family: var(--f-head); font-weight: 600; font-size: 1.25rem; }
+.themes span { color: var(--muted); font-size: 1.02rem; }
+.list-inline { display: flex; flex-wrap: wrap; gap: 0.45rem; padding: 0; margin: 0; }
+.list-inline li { list-style: none; font-family: var(--f-mono); font-size: 0.78rem; padding: 0.3rem 0.8rem; border: 1px solid var(--line); border-radius: 999px; }
+@media (max-width: 960px) {
+  .door { grid-template-columns: minmax(0, 13rem) minmax(0, 1fr); }
+  .door .btn { grid-column: 2; justify-self: start; }
+}
+@media (max-width: 640px) {
+  .door { grid-template-columns: 1fr; }
+  .door .btn { grid-column: 1; white-space: normal; }
+}
+
+/* ---------- para quem ---------- */
+.fit { padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 3rem; }
+.fit li { list-style: none; padding: 1.2rem 0 1.2rem 2.25rem; border-bottom: 1px solid var(--line); position: relative; font-size: 1.2rem; }
+.fit li::before { content: "→"; position: absolute; left: 0; top: 1.2rem; font-family: var(--f-mono); color: var(--accent); }
+@media (max-width: 720px) { .fit { grid-template-columns: 1fr; } }
+.pull { margin: clamp(3rem, 6vw, 4.5rem) 0 0; padding: 0 0 0 1.75rem; border-left: 2px solid var(--accent); max-width: 46rem; }
+.pull p { font-family: var(--f-head); font-size: clamp(1.6rem, 3.4vw, 2.4rem); font-style: italic; line-height: 1.25; }
+.pull .label { margin-bottom: 0.9rem; display: block; }
+
+/* ---------- pergunta interativa ---------- */
+#desligar { background: radial-gradient(40rem 24rem at 50% 0%, rgba(214, 178, 112, 0.12), transparent 70%), var(--night-2); }
+.switch-q { font-size: clamp(1.9rem, 4.4vw, 3.3rem); max-width: 54rem; font-weight: 400; }
+.opts { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2.25rem; padding: 0; }
+.opts li { list-style: none; }
+.opts input { position: absolute; opacity: 0; pointer-events: none; }
+.opts label {
+  display: inline-flex; align-items: center; gap: 0.6rem; cursor: pointer; border-radius: 999px;
+  font-family: var(--f-display); font-weight: 500; font-size: 1rem;
+  padding: 0.75rem 1.2rem; border: 1px solid var(--line); transition: border-color .2s, background .2s, color .2s;
+}
+.opts label::before { content: ""; width: 0.7rem; height: 0.7rem; border-radius: 50%; border: 1px solid currentColor; transition: background .2s; }
+.opts label:hover { border-color: var(--accent); }
+.opts input:checked + label { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.opts input:checked + label::before { background: currentColor; }
+.opts input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 3px; }
+.readout { margin-top: 1.5rem; min-height: 3.2em; color: var(--muted); font-size: 1.15rem; max-width: 42rem; }
+.readout strong { color: var(--fg); font-weight: 600; }
+.answer { margin-top: 2.75rem; padding-top: 2.25rem; border-top: 1px solid var(--line); display: grid; gap: 0.6rem; }
+.answer p:last-child { font-family: var(--f-head); font-size: clamp(1.7rem, 3.8vw, 2.7rem); line-height: 1.12; text-wrap: balance; color: var(--gold-soft); }
+
+/* ---------- sobre ---------- */
+.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(2rem, 6vw, 5rem); }
+@media (max-width: 820px) { .about { grid-template-columns: 1fr; } }
+.about h2 { font-size: clamp(2.6rem, 6vw, 4.6rem); }
+.about .quad { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin-top: 2rem; }
+.about .quad span { background: var(--bg); padding: 1.1rem; font-family: var(--f-display); font-weight: 600; font-stretch: 112%; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.85rem; }
+.about .prose { display: grid; gap: 1.25rem; font-size: 1.2rem; }
+.about .prose .conv { font-family: var(--f-head); font-style: italic; font-size: 1.6rem; line-height: 1.3; padding-block: 1.25rem; border-block: 1px solid var(--line); color: var(--accent); }
+
+/* ---------- ideia ---------- */
+#ideia {
+  background:
+    radial-gradient(45rem 30rem at 15% 20%, rgba(214, 178, 112, 0.14), transparent 60%),
+    radial-gradient(40rem 30rem at 100% 100%, rgba(60, 110, 140, 0.2), transparent 60%),
+    #07111a;
+}
+.idea { display: grid; gap: 2.75rem; }
+.idea .slogan { color: var(--ivory); }
+.idea .slogan em { color: var(--gold); opacity: 1; }
+.idea .words { display: flex; flex-wrap: wrap; gap: 0.6rem; padding: 0; margin: 0; }
+.idea .words li { list-style: none; font-family: var(--f-head); font-style: italic; font-size: clamp(1.2rem, 2.4vw, 1.55rem); padding: 0.4rem 1.1rem; border: 1px solid rgba(214, 178, 112, 0.4); border-radius: 999px; color: var(--gold-soft); }
+.idea .close { font-family: var(--f-head); font-size: clamp(1.6rem, 3.4vw, 2.4rem); line-height: 1.25; max-width: 40rem; }
+.idea .close b { font-weight: 600; color: var(--gold); }
+.idea .lead { font-size: 1.3rem; max-width: 40rem; color: var(--mist); }
+
+/* ---------- contato ---------- */
+#contato { background: linear-gradient(180deg, var(--night), var(--night-2)); }
+.contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 6vw, 5rem); }
+@media (max-width: 860px) { .contact { grid-template-columns: 1fr; } }
+.contact h2 { font-size: clamp(2.4rem, 5.4vw, 4.2rem); }
+.contact .prose { display: grid; gap: 1rem; margin-top: 1.75rem; color: var(--muted); }
+.contact .prose p:last-child { color: var(--gold-soft); font-style: italic; font-size: 1.3rem; }
+form { display: grid; gap: 1.3rem; background: rgba(241, 236, 226, 0.03); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.25rem, 3vw, 2.25rem); }
+.field { display: grid; gap: 0.45rem; }
+.field label, fieldset legend { font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+fieldset legend { margin-bottom: 0.6rem; }
+input[type="text"], input[type="email"], textarea {
+  font: inherit; font-size: 1.05rem; color: var(--fg); background: rgba(241, 236, 226, 0.05);
+  border: 1px solid var(--line); border-radius: 10px; padding: 0.8rem 0.95rem; width: 100%;
+  transition: border-color .2s, background .2s;
+}
+input[type="text"]:focus, input[type="email"]:focus, textarea:focus { outline: none; border-color: var(--gold); background: rgba(241, 236, 226, 0.08); }
+textarea { min-height: 7.5rem; resize: vertical; }
+textarea::placeholder { color: rgba(159, 176, 189, 0.7); }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; }
+@media (max-width: 520px) { .row2 { grid-template-columns: 1fr; } }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; }
+fieldset .opts { margin-top: 0; }
+fieldset .opts label { font-size: 0.9rem; padding: 0.5rem 0.9rem; }
+.form-note { font-size: 0.98rem; color: var(--muted); }
+.form-note[data-state="ok"] { color: var(--gold-soft); }
+
+/* ---------- footer ---------- */
+footer { background: #07111a; color: var(--ivory); padding-block: clamp(3.5rem, 7vw, 5rem) 2.5rem; border-top: 1px solid rgba(241, 236, 226, 0.08); }
+footer .doors { font-family: var(--f-mono); font-size: 0.78rem; letter-spacing: 0.08em; color: var(--mist); }
+footer .big {
+  font-family: var(--f-display); font-stretch: 125%; font-weight: 800; font-size: clamp(3rem, 13vw, 9rem); line-height: 0.85; letter-spacing: 0.06em; margin-block: 2rem 1.25rem;
+  background: linear-gradient(180deg, var(--gold-soft), rgba(214, 178, 112, 0.25)); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+footer .tag { font-size: 1.3rem; font-style: italic; color: var(--ivory); }
+footer .base { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 3rem; }
+footer .label { color: var(--mist); }
+
+/* ---------- motion ---------- */
+.reveal { transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); }
+@media (prefers-reduced-motion: no-preference) {
+  .reveal.pre { opacity: 0.001; transform: translateY(22px); }
+}
+</style>
+
+<div class="progress" aria-hidden="true"><span id="prog"></span></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#inicio">LONARO</a>
+    <nav aria-label="Principal">
+      <a href="#metodo">Método</a>
+      <a href="#map">Transformation Map</a>
+      <a href="#portas">Portas de entrada</a>
+      <a href="#sobre">Sobre</a>
+      <a class="cta" href="#contato">Quero conversar</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <div class="hero">
+    <div class="wrap">
+      <span class="label eyebrow">Método de transformação de negócio</span>
+      <div class="wordmark" aria-hidden="true">LONAR<span>O</span></div>
+      <div class="hero-grid">
+        <div>
+          <h1>Da complexidade ao resultado.</h1>
+          <p class="sub">Transformar não é adotar mais tecnologia. É tomar melhores decisões sobre onde ela realmente cria valor.</p>
+        </div>
+        <div class="hero-side">
+          <p class="lede">Estratégia, produto, pessoas, processos, dados e tecnologia conectados, com a Inteligência Artificial como uma das principais alavancas, para transformar complexidade em decisão, execução e resultado.</p>
+          <div><a class="btn primary" href="#contato" data-door="Ainda não sei">Quero conversar sobre minha empresa</a></div>
+        </div>
+      </div>
+      <canvas id="field" aria-hidden="true"></canvas>
+      <div class="field-legend"><span class="label">Complexidade</span><span class="label">Decisão <b>·</b> Execução <b>·</b> Resultado</span></div>
+      <a class="scroll-cue" href="#valor"><i></i><span class="label">Comece por aqui</span></a>
+    </div>
+  </div>
+
+  <!-- Sua empresa tem IA -->
+  <section id="valor" class="light">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">O cenário</span>
+        <div>
+          <h2>Sua empresa tem IA. Mas ela está gerando valor?</h2>
+          <p class="intro">Talvez sua empresa já esteja usando inteligência artificial.</p>
+        </div>
+      </div>
+      <div class="two">
+        <div>
+          <span class="label">Existem</span>
+          <ul class="has">
+            <li>Ferramentas</li>
+            <li>Pilotos</li>
+            <li>Automações</li>
+            <li>Times experimentando</li>
+            <li>Pessoas utilizando IA todos os dias</li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Mas algumas perguntas continuam difíceis de responder</span>
+          <ul class="questions">
+            <li>Onde a IA realmente está gerando resultado?</li>
+            <li>O que deveria ser automatizado e o que deveria continuar sendo uma decisão humana?</li>
+            <li>Quais iniciativas merecem investimento?</li>
+            <li>Como transformar experimentação em capacidade organizacional?</li>
+            <li>E como preparar líderes e pessoas para trabalhar nesse novo contexto?</li>
+          </ul>
+        </div>
+      </div>
+      <div class="verdict reveal">
+        <p>O desafio já não é simplesmente ter acesso à tecnologia.</p>
+        <p>É saber o que fazer com ela.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- A pergunta mudou -->
+  <section id="pergunta">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">A pergunta mudou</span>
+        <p class="intro" style="margin-top:0">Durante algum tempo, organizações perguntaram uma coisa. Talvez essa não seja mais a pergunta certa.</p>
+      </div>
+      <div class="shift">
+        <div class="q old">
+          <span class="label">Antes</span>
+          <blockquote>“Como podemos usar IA?”</blockquote>
+        </div>
+        <div class="q new">
+          <span class="label"><b>Agora</b></span>
+          <blockquote>“Onde a IA pode criar valor para o nosso negócio?”</blockquote>
+        </div>
+        <div class="contrast">
+          <div><span class="label">Começar pela tecnologia</span><strong>pode produzir projetos.</strong></div>
+          <div><span class="label"><b>Começar pelo problema</b></span><strong>pode produzir transformação.</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band thin gold" aria-label="Princípio">
+    <div class="wrap">
+      <p class="slogan">IA é capacidade.<br><em>Não estratégia.</em></p>
+    </div>
+  </section>
+
+  <!-- Método -->
+  <section id="metodo">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Método LONARO</span>
+        <div>
+          <h2>Não comece pela solução. Comece pelo valor.</h2>
+          <p class="intro">O LONARO é um método de transformação de negócio. Seis etapas que levam a organização da percepção à capacidade. Não começamos pela IA. Começamos pelo negócio.</p>
+        </div>
+      </div>
+
+      <ol class="acro">
+        <li class="step">
+          <div class="letter" aria-hidden="true">L</div>
+          <div class="name"><h3>Leitura</h3><span class="verb">Ver</span></div>
+          <div class="body">
+            <p class="sq">O que realmente está acontecendo?</p>
+            <p class="shiftline"><span class="from">Percepção</span><span class="arrow">→</span><span class="to">Evidência</span></p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="letter" aria-hidden="true">O</div>
+          <div class="name"><h3>Oportunidade</h3><span class="verb">Escolher</span></div>
+          <div class="body">
+            <p class="sq">Onde existe valor a ser destravado?</p>
+            <p class="shiftline"><span class="from">Evidência</span><span class="arrow">→</span><span class="to">Oportunidade</span></p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="letter" aria-hidden="true">N</div>
+          <div class="name"><h3>Necessidade</h3><span class="verb">Focar</span></div>
+          <div class="body">
+            <p class="sq">Onde precisamos atuar?</p>
+            <p class="shiftline"><span class="from">Oportunidade</span><span class="arrow">→</span><span class="to">Foco</span></p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="letter" aria-hidden="true">A</div>
+          <div class="name"><h3>Aceleração</h3><span class="verb">Desenhar</span></div>
+          <div class="body">
+            <p class="sq">Qual é o melhor caminho?</p>
+            <p class="shiftline"><span class="from">Foco</span><span class="arrow">→</span><span class="to">Solução</span></p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="letter" aria-hidden="true">R</div>
+          <div class="name"><h3>Realização</h3><span class="verb">Realizar</span></div>
+          <div class="body">
+            <p class="sq">Como isso vira resultado?</p>
+            <p class="shiftline"><span class="from">Solução</span><span class="arrow">→</span><span class="to">Resultado</span></p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="letter" aria-hidden="true">O</div>
+          <div class="name"><h3>Organização</h3><span class="verb">Sustentar</span></div>
+          <div class="body">
+            <p class="sq">Como fazemos esse resultado permanecer e evoluir?</p>
+            <p class="shiftline"><span class="from">Resultado</span><span class="arrow">→</span><span class="to">Capacidade</span></p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="chain" aria-label="A transformação ao longo do método">
+        <span class="label">O que muda ao longo do método</span>
+        <span>Percepção</span><i>→</i><span>Evidência</span><i>→</i><span>Oportunidade</span><i>→</i><span>Foco</span><i>→</i><span>Solução</span><i>→</i><span>Resultado</span><i>→</i><span>Capacidade</span>
+      </div>
+
+      <div class="levers">
+        <span class="label">Onde a solução pode estar</span>
+        <ul><li>Pessoas</li><li>Processos</li><li>Produto</li><li>Dados</li><li>Governança</li><li>Tecnologia</li><li class="ai">Inteligência Artificial</li></ul>
+        <p><strong>IA é uma das principais alavancas do método, mas não é o ponto de partida.</strong> A solução é desenhada a partir do foco, não da ferramenta.</p>
+      </div>
+
+      <div class="method-cta"><a class="btn" href="metodo.html">Ver o mapa oficial do método</a></div>
+    </div>
+  </section>
+
+  <!-- Transformation Map -->
+  <section id="map">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">A ferramenta</span>
+        <div>
+          <h2>LONARO Transformation Map</h2>
+          <p class="intro">Um único artefato vivo, construído ao longo de toda a metodologia. Cada etapa acrescenta uma camada ao mesmo mapa, do problema à evolução.</p>
+        </div>
+      </div>
+      <div class="tmap">
+        <div class="tmap-cols">
+          <div class="tmap-col"><span class="from-stage"><b>L</b> · Leitura</span><div class="titem"><b>01</b><span>Problema</span></div><div class="titem"><b>02</b><span>Evidências</span></div></div>
+          <div class="tmap-col"><span class="from-stage"><b>O</b> · Oportunidade</span><div class="titem"><b>03</b><span>Oportunidades</span></div></div>
+          <div class="tmap-col"><span class="from-stage"><b>N</b> · Necessidade</span><div class="titem"><b>04</b><span>Prioridade</span></div><div class="titem"><b>05</b><span>Gaps</span></div><div class="titem"><b>06</b><span>Focos</span></div></div>
+          <div class="tmap-col"><span class="from-stage"><b>A</b> · Aceleração</span><div class="titem"><b>07</b><span>Solução</span></div></div>
+          <div class="tmap-col"><span class="from-stage"><b>R</b> · Realização</span><div class="titem"><b>08</b><span>Roadmap</span></div><div class="titem"><b>09</b><span>Métricas</span></div></div>
+          <div class="tmap-col"><span class="from-stage"><b>O</b> · Organização</span><div class="titem"><b>10</b><span>Governança</span></div><div class="titem"><b>11</b><span>Evolução</span></div></div>
+        </div>
+        <p class="tmap-note"><strong>O método orienta a conversa. O mapa registra as decisões.</strong> É o documento que a liderança usa para decidir, acompanhar a execução e fazer a transformação evoluir.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="portas" class="light">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Formatos</span>
+        <div>
+          <h2>Não existe uma única porta de entrada.</h2>
+          <p class="intro">Cada organização está em um momento diferente. Por isso, o Método LONARO pode ser aplicado em diferentes níveis de profundidade.</p>
+        </div>
+      </div>
+
+      <div class="depth-key" aria-hidden="true"><span class="label">Provocar</span><span class="scale"></span><span class="label"><b>Transformar</b></span></div>
+
+      <article class="door">
+        <div class="door-id"><div class="meter" aria-label="Profundidade 1 de 6"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div><h3>Palestras</h3></div>
+        <div class="door-body">
+          <p class="tagline">Ideias que provocam novas decisões.</p>
+          <p>Experiências para eventos corporativos, convenções, encontros de liderança e fóruns executivos.</p>
+          <span class="label">Temas</span>
+          <ul class="themes">
+            <li><strong>IA não é estratégia. Negócio é.</strong><span>Como estratégia, contexto e inteligência artificial se conectam para gerar resultado.</span></li>
+            <li><strong>Tecnologia executa. Liderança forma.</strong><span>O papel da liderança em organizações cada vez mais aumentadas pela tecnologia.</span></li>
+            <li><strong>IA sem contexto é só tecnologia.</strong><span>Por que implementar inteligência artificial não significa necessariamente transformar um negócio.</span></li>
+          </ul>
+        </div>
+        <a class="btn" href="#contato" data-door="Palestras">Contratar palestra</a>
+      </article>
+
+      <article class="door">
+        <div class="door-id"><div class="meter" aria-label="Profundidade 2 de 6"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div><h3>Workshops</h3></div>
+        <div class="door-body">
+          <p class="tagline">Menos apresentação. Mais aplicação.</p>
+          <p>Experiências práticas nas quais os participantes trabalham desafios reais da organização utilizando o Método LONARO.</p>
+          <p class="strong">O objetivo não é sair apenas com novos conceitos. É sair com problemas estruturados, oportunidades identificadas e prioridades mais claras.</p>
+        </div>
+        <a class="btn" href="#contato" data-door="Workshops">Conhecer os workshops</a>
+      </article>
+
+      <article class="door">
+        <div class="door-id"><div class="meter" aria-label="Profundidade 3 de 6"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div><h3>Imersões Executivas</h3></div>
+        <div class="door-body">
+          <p class="tagline">Coloque um problema real na mesa.</p>
+          <p>Uma experiência para grupos de executivos e lideranças trabalharem desafios estratégicos da organização.</p>
+          <p class="strong">A empresa traz o desafio. O Método LONARO estrutura a conversa. Ao final, decisões, oportunidades e próximos passos deixam de estar dispersos e passam a formar o LONARO Transformation Map.</p>
+        </div>
+        <a class="btn" href="#contato" data-door="Imersões Executivas">Quero levar uma imersão para minha empresa</a>
+      </article>
+
+      <article class="door">
+        <div class="door-id"><div class="meter" aria-label="Profundidade 4 de 6"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div><h3>Diagnóstico LONARO</h3></div>
+        <div class="door-body">
+          <p class="tagline">Talvez sua empresa não precise de mais uma ferramenta. Talvez precise descobrir onde está a oportunidade.</p>
+          <p>Um diagnóstico estruturado para identificar pontos de complexidade, ineficiência, conhecimento disperso, decisões críticas e oportunidades de aplicação de IA e tecnologia.</p>
+          <p class="strong">Ao final, a liderança recebe as primeiras camadas do LONARO Transformation Map: um mapa priorizado de oportunidades e um roadmap inicial de transformação.</p>
+        </div>
+        <a class="btn" href="#contato" data-door="Diagnóstico">Quero diagnosticar minha empresa</a>
+      </article>
+
+      <article class="door">
+        <div class="door-id"><div class="meter" aria-label="Profundidade 5 de 6"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div><h3>Consultoria</h3></div>
+        <div class="door-body">
+          <p class="tagline">Da oportunidade à transformação.</p>
+          <p>Para organizações que precisam avançar além do diagnóstico. Acompanhamento estruturado para transformar oportunidades priorizadas em iniciativas executáveis.</p>
+          <ul class="list-inline"><li>Estratégia</li><li>Produto</li><li>IA</li><li>Governança</li><li>Roadmap</li><li>Métricas</li><li>Integração entre negócio e tecnologia</li></ul>
+        </div>
+        <a class="btn" href="#contato" data-door="Consultoria">Falar sobre um projeto</a>
+      </article>
+
+      <article class="door">
+        <div class="door-id"><div class="meter" aria-label="Profundidade 6 de 6"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div><h3>Advisory Executivo</h3></div>
+        <div class="door-body">
+          <p class="tagline">Algumas decisões não precisam de mais execução. Precisam de uma nova perspectiva.</p>
+          <p>Acompanhamento para executivos e organizações que estão conduzindo transformação, produto, inovação ou adoção estratégica de inteligência artificial.</p>
+          <p class="strong">Uma camada externa de pensamento, provocação e estruturação para decisões importantes.</p>
+        </div>
+        <a class="btn" href="#contato" data-door="Advisory">Conversar sobre advisory</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- Para quem é -->
+  <section id="para-quem">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Para quem é</span>
+        <h2>Para organizações que:</h2>
+      </div>
+      <ul class="fit">
+        <li>Estão investindo em IA, mas ainda precisam conectar tecnologia a resultado.</li>
+        <li>Possuem muitas iniciativas e pouca clareza de prioridade.</li>
+        <li>Precisam aproximar negócio e tecnologia.</li>
+        <li>Querem identificar processos e decisões que podem ser transformados.</li>
+        <li>Estão preparando suas lideranças para trabalhar com IA.</li>
+        <li>Precisam transformar experimentação em escala.</li>
+        <li>Querem inovar sem perder contexto, governança e responsabilidade.</li>
+      </ul>
+      <blockquote class="pull">
+        <span class="label">E também para quem tem uma sensação cada vez mais comum</span>
+        <p>“Sabemos que precisamos mudar. Só ainda não está claro por onde começar.”</p>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Pergunta interativa -->
+  <section id="desligar">
+    <div class="wrap">
+      <span class="label">Uma pergunta para sua organização</span>
+      <h2 class="switch-q" style="margin-top:1.25rem">Se toda a inteligência artificial da sua empresa fosse desligada amanhã, o que realmente pioraria?</h2>
+      <ul class="opts" id="impact">
+        <li><input type="checkbox" id="imp-prod" value="Produtividade"><label for="imp-prod">Produtividade</label></li>
+        <li><input type="checkbox" id="imp-rec" value="Receita"><label for="imp-rec">Receita</label></li>
+        <li><input type="checkbox" id="imp-exp" value="Experiência do cliente"><label for="imp-exp">Experiência do cliente</label></li>
+        <li><input type="checkbox" id="imp-vel" value="Velocidade"><label for="imp-vel">Velocidade</label></li>
+        <li><input type="checkbox" id="imp-dec" value="Qualidade das decisões"><label for="imp-dec">Qualidade das decisões</label></li>
+        <li><input type="checkbox" id="imp-nada" value="nada"><label for="imp-nada">Ou quase nada?</label></li>
+      </ul>
+      <p class="readout" id="readout" aria-live="polite">Marque o que sentiria falta. A resposta ajuda a revelar uma diferença importante.</p>
+      <div class="answer">
+        <span class="label">A diferença</span>
+        <p>Usar IA não é a mesma coisa que gerar valor com IA.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre -->
+  <section id="sobre" class="light">
+    <div class="wrap about">
+      <div>
+        <span class="label">Sobre</span>
+        <h2 style="margin-top:1rem">Camila Lonaro</h2>
+        <div class="quad"><span>Negócio</span><span>Produto</span><span>Tecnologia</span><span>Pessoas</span></div>
+      </div>
+      <div class="prose">
+        <p>Camila Lonaro é executiva de Produtos e Inteligência Artificial, com trajetória construída em serviços financeiros, pagamentos, transformação digital e liderança.</p>
+        <p>Sua experiência passa por grandes organizações e ambientes complexos, conectando estratégia, produto, tecnologia, processos e pessoas.</p>
+        <p>Também possui atuação em contextos LATAM, trabalhando em desafios que exigem integração entre diferentes mercados, áreas, tecnologias e decisões.</p>
+        <p>Essa experiência levou a uma convicção:</p>
+        <p class="conv">O maior desafio da transformação não está na tecnologia isoladamente. Está em conectar contexto, decisão, capacidade e pessoas para que a tecnologia produza resultado.</p>
+        <p>Foi dessa visão que nasceu o Método LONARO.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ideia -->
+  <section class="band" id="ideia">
+    <div class="wrap idea">
+      <span class="label">Uma ideia que orienta tudo</span>
+      <p class="slogan">Tecnologia executa.<br><em>Liderança forma.</em></p>
+      <p class="lead">Quanto mais capacidade entregamos às máquinas, mais importante se torna aquilo que continuamos esperando das pessoas.</p>
+      <ul class="words"><li>Contexto.</li><li>Repertório.</li><li>Responsabilidade.</li><li>Decisão.</li><li>Liderança.</li></ul>
+      <p class="close">Porque IA sabe muito.<br><b>Mas saber não é decidir.</b></p>
+    </div>
+  </section>
+
+  <!-- Contato -->
+  <section id="contato">
+    <div class="wrap contact">
+      <div>
+        <span class="label">Primeira conversa</span>
+        <h2 style="margin-top:1rem">Por onde sua empresa precisa começar?</h2>
+        <div class="prose">
+          <p>Você não precisa saber se precisa de uma palestra, workshop, diagnóstico ou consultoria.</p>
+          <p>A primeira conversa serve justamente para entender isso.</p>
+          <p>Conte o desafio. Nós ajudamos a identificar a melhor porta de entrada.</p>
+        </div>
+      </div>
+      <form id="contact-form" novalidate>
+        <div class="row2">
+          <div class="field"><label for="c-nome">Nome</label><input type="text" id="c-nome" name="nome" autocomplete="name" required></div>
+          <div class="field"><label for="c-empresa">Empresa</label><input type="text" id="c-empresa" name="empresa" autocomplete="organization"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="c-cargo">Cargo</label><input type="text" id="c-cargo" name="cargo" autocomplete="organization-title"></div>
+          <div class="field"><label for="c-email">E-mail</label><input type="email" id="c-email" name="email" autocomplete="email" required></div>
+        </div>
+        <fieldset>
+          <legend>Porta de entrada</legend>
+          <ul class="opts" id="door-opts">
+            <li><input type="radio" name="porta" id="d-0" value="Ainda não sei" checked><label for="d-0">Ainda não sei</label></li>
+            <li><input type="radio" name="porta" id="d-1" value="Palestras"><label for="d-1">Palestras</label></li>
+            <li><input type="radio" name="porta" id="d-2" value="Workshops"><label for="d-2">Workshops</label></li>
+            <li><input type="radio" name="porta" id="d-3" value="Imersões Executivas"><label for="d-3">Imersões Executivas</label></li>
+            <li><input type="radio" name="porta" id="d-4" value="Diagnóstico"><label for="d-4">Diagnóstico</label></li>
+            <li><input type="radio" name="porta" id="d-5" value="Consultoria"><label for="d-5">Consultoria</label></li>
+            <li><input type="radio" name="porta" id="d-6" value="Advisory"><label for="d-6">Advisory</label></li>
+          </ul>
+        </fieldset>
+        <div class="field"><label for="c-desafio">Conte o desafio</label><textarea id="c-desafio" name="desafio" placeholder="O que sua empresa está tentando resolver?"></textarea></div>
+        <div><button class="btn primary" type="submit">Quero conversar</button></div>
+        <p class="form-note" id="form-note" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="doors">Palestras • Workshops • Imersões Executivas • Diagnóstico • Consultoria • Advisory</p>
+    <p class="big">LONARO</p>
+    <p class="tag">Da complexidade ao resultado.</p>
+    <p class="label" style="margin-top:0.75rem">Inteligência para decidir <b>·</b> Estrutura para executar</p>
+    <div class="base"><span class="label">© 2026 LONARO</span><a class="label" href="#inicio">Voltar ao topo ↑</a></div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // CTA buttons preselect the entry point in the contact form
+  document.querySelectorAll('[data-door]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var v = a.getAttribute('data-door');
+      var r = document.querySelector('#door-opts input[value="' + v + '"]');
+      if (r) r.checked = true;
+    });
+  });
+
+  // "Se a IA fosse desligada" readout
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('#impact input'));
+  var out = document.getElementById('readout');
+  var nada = document.getElementById('imp-nada');
+  boxes.forEach(function (b) {
+    b.addEventListener('change', function () {
+      if (b === nada && b.checked) boxes.forEach(function (o) { if (o !== nada) o.checked = false; });
+      if (b !== nada && b.checked) nada.checked = false;
+      var picked = boxes.filter(function (o) { return o.checked && o !== nada; }).map(function (o) { return o.value.toLowerCase(); });
+      if (nada.checked) {
+        out.innerHTML = '<strong>Se quase nada pioraria, a IA existe na empresa, mas ainda não está no centro do negócio.</strong> É um bom ponto de partida para um diagnóstico.';
+      } else if (picked.length === 0) {
+        out.textContent = 'Marque o que sentiria falta. A resposta ajuda a revelar uma diferença importante.';
+      } else {
+        var list = picked.length > 1 ? picked.slice(0, -1).join(', ') + ' e ' + picked[picked.length - 1] : picked[0];
+        out.innerHTML = 'Você marcou <strong>' + list + '</strong>. Agora a pergunta seguinte: sua empresa consegue medir quanto?';
+      }
+    });
+  });
+
+  // Contact form: validate and prepare the message
+  var form = document.getElementById('contact-form');
+  var note = document.getElementById('form-note');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var nome = form.nome.value.trim(), email = form.email.value.trim();
+    if (!nome || !email || email.indexOf('@') < 1) {
+      note.dataset.state = '';
+      note.textContent = 'Preencha nome e um e-mail válido para continuar.';
+      (!nome ? form.nome : form.email).focus();
+      return;
+    }
+    note.dataset.state = 'ok';
+    note.innerHTML = 'Obrigado, ' + nome.split(' ')[0] + '. O envio automático está em configuração. Para falar agora, chame no <a href="https://www.instagram.com/camilalonaro/" target="_blank" rel="noopener">Instagram @camilalonaro</a> ou no <a href="https://www.linkedin.com/in/camilalonaro/" target="_blank" rel="noopener">LinkedIn</a>.';
+  });
+
+  // Reading progress bar
+  var prog = document.getElementById('prog');
+  function onScroll() {
+    var max = document.documentElement.scrollHeight - innerHeight;
+    prog.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0) + ')';
+  }
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // Mark the chapter being read in the nav, and light the method letters as they are reached
+  if ('IntersectionObserver' in window) {
+    var links = {};
+    document.querySelectorAll('.top nav a:not(.cta)').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+    var navIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var a = links[en.target.id];
+        if (a) a.classList.toggle('on', en.isIntersecting);
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    Object.keys(links).forEach(function (id) { var el = document.getElementById(id); if (el) navIo.observe(el); });
+
+    var stepIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('lit'); stepIo.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -35% 0px' });
+    document.querySelectorAll('.step').forEach(function (el) { stepIo.observe(el); });
+  } else {
+    document.querySelectorAll('.step').forEach(function (el) { el.classList.add('lit'); });
+  }
+
+  // Reveal on scroll (content is visible without JS or observer)
+  document.querySelectorAll('.sec-head, .has li, .questions li, .q, .contrast, .step, .chain, .levers, .tmap-col, .door, .fit li, .pull, .answer, .about > *, .idea > *, .contact > *').forEach(function (el) { el.classList.add('reveal'); });
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var els = document.querySelectorAll('.reveal');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.remove('pre'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -10% 0px' });
+    els.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top > innerHeight) { el.classList.add('pre'); io.observe(el); }
+    });
+  }
+
+  // Hero field: tangled lines on the left resolve into parallel lines on the right
+  var cv = document.getElementById('field');
+  var ctx = cv.getContext('2d');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var N = 14, seeds = [];
+  for (var i = 0; i < N; i++) seeds.push({ a: Math.random() * 6.28, b: Math.random() * 6.28, f: 1.5 + Math.random() * 3, s: 0.6 + Math.random() * 0.8 });
+  function tokens() {
+    var cs = getComputedStyle(document.documentElement);
+    return { fg: cs.getPropertyValue('--ivory').trim(), accent: cs.getPropertyValue('--gold').trim() };
+  }
+  function draw(t) {
+    var dpr = window.devicePixelRatio || 1;
+    var w = cv.clientWidth, h = cv.clientHeight;
+    if (cv.width !== Math.round(w * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    var c = tokens();
+    var pad = 8, steps = 120;
+    for (var i = 0; i < N; i++) {
+      var sd = seeds[i];
+      var target = pad + (h - pad * 2) * (i / (N - 1));
+      ctx.beginPath();
+      for (var k = 0; k <= steps; k++) {
+        var x = (k / steps) * w;
+        var p = k / steps;
+        var calm = Math.min(1, Math.max(0, (p - 0.25) / 0.45));
+        calm = calm * calm * (3 - 2 * calm);
+        var noise = Math.sin(p * sd.f * 6.28 + sd.a + t * 0.0006 * sd.s) * 0.5 + Math.sin(p * sd.f * 11 + sd.b - t * 0.0004) * 0.3;
+        var chaos = h / 2 + noise * h * 0.55;
+        var y = chaos * (1 - calm) + target * calm;
+        if (k === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      var highlight = i === Math.floor(N / 2);
+      ctx.strokeStyle = highlight ? c.accent : c.fg;
+      ctx.globalAlpha = highlight ? 1 : 0.16;
+      ctx.lineWidth = highlight ? 2 : 1;
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  }
+  function loop(t) { draw(t); if (!reduce) requestAnimationFrame(loop); }
+  requestAnimationFrame(loop);
+  addEventListener('resize', function () { draw(performance.now()); });
+})();
+</script>
+</body>
+</html>
