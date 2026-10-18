@@ -338,6 +338,7 @@ h2 em,h1 em{font-style:italic;color:var(--soft)}
 #mapa{position:absolute;inset:0;z-index:40;opacity:0;pointer-events:none;overflow:hidden;
   background:linear-gradient(135deg,#1d1c19 0%,#141311 55%,#0e0d0c 100%);transition:opacity .6s ease}
 #mapa.on{opacity:1}
+#palco.sem-trans .slide{transition:none!important}
 #mapa .cam{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0}
 #mapa .mt{font:400 64px var(--serif);fill:var(--cream)} #mapa .ms{font:400 italic 30px var(--serif);fill:var(--soft)}
 #mapa .trilha{fill:none;stroke:rgba(174,146,85,.45);stroke-width:4;stroke-dasharray:14 12}
@@ -752,12 +753,14 @@ body:not(.idle) .ctl{opacity:1} body.idle{cursor:none}
     est.t.push(setTimeout(function(){ FR.classList.add('on'); },450));
     if(final) est.t.push(setTimeout(function(){ CAM.style.transition='transform 1.6s cubic-bezier(.6,.05,.25,1)'; camera(0,1); },500)); }
   function seguirMapa(){ if(!est) return; var e=est;
-    if(e.final){ var cb=e.cb; limpar(); cb(); return; }
-    if(e.fase==='voando'){ var c=e.cb; limpar(); c(); return; }
+    if(e.final){ var cb=e.cb; palco.classList.add('sem-trans'); cb(); void palco.offsetWidth; palco.classList.remove('sem-trans'); limpar(); return; }
+    if(e.fase==='voando'){ var c=e.cb, feito=e.entrou; limpar(); if(!feito) c(); return; }
     e.fase='voando'; FR.classList.remove('on'); marcar(e.para-1,e.para);
     CAM.style.transition='transform 1.2s cubic-bezier(.6,.05,.25,1)'; camera(e.para,1.7);
-    e.t.push(setTimeout(function(){ CAM.style.transition='transform .7s cubic-bezier(.7,0,.9,.5)'; camera(e.para,6); MAPA.classList.remove('on'); },1350));
-    e.t.push(setTimeout(function(){ if(est===e){ var c=e.cb; limpar(); c(); } },2000)); }
+    e.t.push(setTimeout(function(){ CAM.style.transition='transform .7s cubic-bezier(.7,0,.9,.5)'; camera(e.para,6); },1350));
+    /* troca o slide por baixo do mapa ainda opaco; so depois o mapa some, revelando o ato novo (e nunca o slide antigo) */
+    e.t.push(setTimeout(function(){ if(est===e){ e.entrou=true; palco.classList.add('sem-trans'); e.cb(); void palco.offsetWidth; palco.classList.remove('sem-trans'); MAPA.classList.remove('on'); } },1750));
+    e.t.push(setTimeout(function(){ if(est===e) limpar(); },2400)); }
   function atoDe(k){ var a=S[k]&&S[k].getAttribute('data-ato'); return a?+a:0; }
 
   /* efeito IA no slide de abertura: fluxo de dados ao fundo, numeros que contam e texto que se digita */
