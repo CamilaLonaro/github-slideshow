@@ -752,14 +752,16 @@ body:not(.idle) .ctl{opacity:1} body.idle{cursor:none}
     FR.innerHTML=final?FRASES.fim:FRASES[para]; MAPA.classList.add('on'); void CAM.offsetWidth;
     est.t.push(setTimeout(function(){ FR.classList.add('on'); },450));
     if(final) est.t.push(setTimeout(function(){ CAM.style.transition='transform 1.6s cubic-bezier(.6,.05,.25,1)'; camera(0,1); },500)); }
+  /* troca o slide na hora, sem esmaecer, para o slide antigo nunca reaparecer */
+  function trocar(e){ if(e.entrou) return; e.entrou=true; palco.classList.add('sem-trans'); e.cb(); void palco.offsetWidth; palco.classList.remove('sem-trans'); }
   function seguirMapa(){ if(!est) return; var e=est;
-    if(e.final){ var cb=e.cb; palco.classList.add('sem-trans'); cb(); void palco.offsetWidth; palco.classList.remove('sem-trans'); limpar(); return; }
-    if(e.fase==='voando'){ var c=e.cb, feito=e.entrou; limpar(); if(!feito) c(); return; }
-    e.fase='voando'; FR.classList.remove('on'); marcar(e.para-1,e.para);
+    if(e.final){ trocar(e); limpar(); return; }
+    if(e.fase==='voando'){ trocar(e); limpar(); return; }
+    /* o mapa ja cobre a tela: o ato novo entra por baixo agora, antes do voo; quando o mapa some, so ele aparece */
+    e.fase='voando'; trocar(e); FR.classList.remove('on'); marcar(e.para-1,e.para);
     CAM.style.transition='transform 1.2s cubic-bezier(.6,.05,.25,1)'; camera(e.para,1.7);
     e.t.push(setTimeout(function(){ CAM.style.transition='transform .7s cubic-bezier(.7,0,.9,.5)'; camera(e.para,6); },1350));
-    /* troca o slide por baixo do mapa ainda opaco; so depois o mapa some, revelando o ato novo (e nunca o slide antigo) */
-    e.t.push(setTimeout(function(){ if(est===e){ e.entrou=true; palco.classList.add('sem-trans'); e.cb(); void palco.offsetWidth; palco.classList.remove('sem-trans'); MAPA.classList.remove('on'); } },1750));
+    e.t.push(setTimeout(function(){ if(est===e) MAPA.classList.remove('on'); },1750));
     e.t.push(setTimeout(function(){ if(est===e) limpar(); },2400)); }
   function atoDe(k){ var a=S[k]&&S[k].getAttribute('data-ato'); return a?+a:0; }
 
