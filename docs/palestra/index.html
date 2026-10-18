@@ -336,7 +336,7 @@ h2 em,h1 em{font-style:italic;color:var(--soft)}
 .slide{transform:scale(1.035);transition:opacity .55s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
 .slide.on{transform:none}
 #mapa{position:absolute;inset:0;z-index:40;opacity:0;pointer-events:none;overflow:hidden;
-  background:linear-gradient(135deg,#1d1c19 0%,#141311 55%,#0e0d0c 100%);transition:opacity .6s ease}
+  background:linear-gradient(135deg,#1d1c19 0%,#141311 55%,#0e0d0c 100%);transition:opacity .9s ease}
 #mapa.on{opacity:1}
 #palco.sem-trans .slide{transition:none!important}
 #mapa .cam{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0}
@@ -751,7 +751,7 @@ body:not(.idle) .ctl{opacity:1} body.idle{cursor:none}
     if(final){ marcar(7,0); camera(7,1.7); } else { marcar(para-1,de||0); camera(de||0, de?1.7:1); }
     FR.innerHTML=final?FRASES.fim:FRASES[para]; MAPA.classList.add('on'); void CAM.offsetWidth;
     est.t.push(setTimeout(function(){ FR.classList.add('on'); },450));
-    if(final) est.t.push(setTimeout(function(){ CAM.style.transition='transform 1.6s cubic-bezier(.6,.05,.25,1)'; camera(0,1); },500)); }
+    if(final) est.t.push(setTimeout(function(){ CAM.style.transition='transform 2.4s cubic-bezier(.45,.05,.25,1)'; camera(0,1); },500)); }
   /* troca o slide na hora, sem esmaecer, para o slide antigo nunca reaparecer */
   function trocar(e){ if(e.entrou) return; e.entrou=true; palco.classList.add('sem-trans'); e.cb(); void palco.offsetWidth; palco.classList.remove('sem-trans'); }
   function seguirMapa(){ if(!est) return; var e=est;
@@ -759,10 +759,10 @@ body:not(.idle) .ctl{opacity:1} body.idle{cursor:none}
     if(e.fase==='voando'){ trocar(e); limpar(); return; }
     /* o mapa ja cobre a tela: o ato novo entra por baixo agora, antes do voo; quando o mapa some, so ele aparece */
     e.fase='voando'; trocar(e); FR.classList.remove('on'); marcar(e.para-1,e.para);
-    CAM.style.transition='transform 1.2s cubic-bezier(.6,.05,.25,1)'; camera(e.para,1.7);
-    e.t.push(setTimeout(function(){ CAM.style.transition='transform .7s cubic-bezier(.7,0,.9,.5)'; camera(e.para,6); },1350));
-    e.t.push(setTimeout(function(){ if(est===e) MAPA.classList.remove('on'); },1750));
-    e.t.push(setTimeout(function(){ if(est===e) limpar(); },2400)); }
+    CAM.style.transition='transform 2.2s cubic-bezier(.45,.05,.25,1)'; camera(e.para,1.7);
+    e.t.push(setTimeout(function(){ CAM.style.transition='transform 1.3s cubic-bezier(.6,0,.85,.6)'; camera(e.para,6); },2400));
+    e.t.push(setTimeout(function(){ if(est===e) MAPA.classList.remove('on'); },3000));
+    e.t.push(setTimeout(function(){ if(est===e) limpar(); },4000)); }
   function atoDe(k){ var a=S[k]&&S[k].getAttribute('data-ato'); return a?+a:0; }
 
   /* efeito IA no slide de abertura: fluxo de dados ao fundo, numeros que contam e texto que se digita */
