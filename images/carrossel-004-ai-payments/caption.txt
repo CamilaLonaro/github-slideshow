@@ -1,0 +1,21 @@
+A IA decidiu. Quem responde?
+
+Em pagamentos, a automação já aprova, recusa, bloqueia e libera crédito em milissegundos. Decisões que antes passavam pela mesa de alguém.
+
+Mas automatizar a decisão não automatiza a responsabilidade. Quando algo dá errado, o cliente não reclama com o modelo. Reclama com a empresa.
+
+Antes de entregar uma decisão para a IA, cinco perguntas:
+
+1. Quem é o dono desta decisão?
+2. Qual erro é aceitável, e qual não é?
+3. Como o cliente contesta?
+4. Quem revisa, e com que frequência?
+5. Como explicamos o porquê?
+
+Transparência, segurança e confiança não são recursos do modelo. São decisões de liderança.
+
+É sobre isso que vou falar no AI Payments Executive Forum, dias 9 e 10 de dezembro, em São Paulo.
+
+Qual dessas cinco perguntas a sua empresa ainda não respondeu? Me conta nos comentários. E salva este post para levar para a próxima reunião sobre IA.
+
+#PontoDeDecisão #InteligênciaArtificial #Pagamentos #GovernançaDeIA #Liderança #MétodoLONARO
