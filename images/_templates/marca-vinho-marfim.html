@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@400..800&display=swap">
+<style>
+:root{--wine:#3B1F2B;--ivory:#F5F1E9;--coral:#A95443;--peach:#E8A38B}
+.dark{--paper:var(--wine);--ink:var(--ivory);--accent:var(--peach);--secondary:#D7C2C9;--line:#72525F}
+.light{--paper:var(--ivory);--ink:var(--wine);--accent:var(--coral);--secondary:#705760;--line:#D9CAC8}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1350px;overflow:hidden}
+body{position:relative;font-family:"Inter",sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased}
+.ph{position:absolute;left:0;right:0;top:0;height:__PH__px;background-image:url("__IMG__");background-size:cover;background-position:__POS__}
+.dark .ph::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:46%;background:linear-gradient(180deg,rgba(59,31,43,0) 0%,rgba(59,31,43,.65) 62%,#3B1F2B 100%)}
+.cap{position:absolute;left:72px;top:calc(__PH__px + 26px);font-size:24px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--secondary)}
+.card{position:absolute;left:72px;right:72px;top:__CT__px}
+.eyebrow{font-size:24px;font-weight:700;letter-spacing:.21em;line-height:1.35;text-transform:uppercase;color:var(--accent);margin-bottom:34px}
+h1{font-family:"Playfair Display",serif;font-weight:400;font-size:__H1__;line-height:1.08;letter-spacing:-.025em;text-wrap:balance}
+h1 em{font-style:italic;font-weight:400;color:var(--accent)}
+.sub{margin-top:36px;font-size:40px;line-height:1.4;color:var(--secondary);font-weight:400;text-wrap:pretty}
+.list{margin-top:48px;list-style:none;counter-reset:q}
+.list li{counter-increment:q;display:flex;gap:34px;align-items:baseline;font-size:42px;line-height:1.25;font-weight:500;padding:22px 0;border-top:1.5px solid var(--line)}
+.list li:last-child{border-bottom:1.5px solid var(--line)}
+.list li::before{content:counter(q,decimal-leading-zero);font-family:"Playfair Display",serif;font-style:italic;font-size:46px;color:var(--accent);min-width:62px}
+.foot{position:absolute;left:72px;right:72px;bottom:56px;display:flex;justify-content:space-between;align-items:flex-end;border-top:1.5px solid var(--line);padding-top:26px}
+.who{font-size:24px;letter-spacing:.21em;text-transform:uppercase;font-weight:700;color:var(--ink)}
+.cred{font-size:24px;color:var(--secondary);margin-top:8px;font-weight:500}
+.right{font-size:24px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;white-space:nowrap}
+</style></head><body class="__MODE__">
+__BG__
+<div class="card">__CARD__</div>
+<div class="foot"><div><div class="who">Camila Lonaro</div><div class="cred">Criadora do Método LONARO</div></div><div class="right">__RIGHT__</div></div>
+</body></html>
